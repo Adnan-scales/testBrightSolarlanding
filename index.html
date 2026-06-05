@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrightSolar Solutions – Clean Energy for a Brighter Future</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: #1a1a2e;
+      line-height: 1.6;
+    }
+
+    /* ── CSS Variables ── */
+    :root {
+      --green-dark:  #166534;
+      --green-main:  #16a34a;
+      --green-light: #22c55e;
+      --green-pale:  #dcfce7;
+      --green-glow:  #bbf7d0;
+      --yellow:      #facc15;
+      --gray-50:     #f9fafb;
+      --gray-100:    #f3f4f6;
+      --gray-200:    #e5e7eb;
+      --gray-500:    #6b7280;
+      --gray-700:    #374151;
+      --gray-900:    #111827;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:   0 4px 6px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.06);
+      --shadow-lg:   0 10px 30px rgba(0,0,0,.10), 0 4px 10px rgba(0,0,0,.06);
+      --shadow-xl:   0 20px 50px rgba(0,0,0,.13);
+      --radius:      14px;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-tag {
+      display: inline-block;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray-500);
+      max-width: 580px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow-md); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--green-main), var(--green-light));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(34,197,94,.35);
+    }
+    .nav-logo span {
+      font-size: 1.15rem; font-weight: 800;
+      color: var(--gray-900);
+    }
+    .nav-logo span em { color: var(--green-main); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      text-decoration: none; font-size: .92rem; font-weight: 500;
+      color: var(--gray-700);
+      padding: 7px 14px; border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--green-pale); color: var(--green-dark); }
+    .nav-links .btn-nav {
+      background: var(--green-main); color: #fff !important;
+      padding: 8px 20px; border-radius: 999px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(22,163,74,.35);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .nav-links .btn-nav:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(22,163,74,.45);
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; border: none; background: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: var(--gray-700); border-radius: 2px;
+      transition: all .3s;
+    }
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 4px;
+      padding: 12px 24px 20px;
+      border-top: 1px solid var(--gray-200);
+      background: rgba(255,255,255,.97);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; font-size: .95rem; font-weight: 500;
+      color: var(--gray-700); padding: 10px 14px; border-radius: 8px;
+      transition: background .2s;
+    }
+    .mobile-menu a:hover { background: var(--green-pale); color: var(--green-dark); }
+
+    /* ── HERO ── */
+    #home {
+      position: relative; overflow: hidden;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 68px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.pexels.com/photos/12243093/pexels-photo-12243093.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200') center/cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(5,46,22,.88) 0%,
+        rgba(20,83,45,.80) 40%,
+        rgba(22,163,74,.30) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 100px 0 120px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      backdrop-filter: blur(8px);
+      color: #fff; font-size: .82rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 999px;
+      margin-bottom: 28px;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--yellow);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .6; transform: scale(1.3); }
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900; color: #fff; line-height: 1.1;
+      margin-bottom: 22px; max-width: 680px;
+    }
+    .hero-title .accent { color: var(--yellow); }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,.82);
+      max-width: 520px; margin-bottom: 42px; line-height: 1.7;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--green-light), var(--green-main));
+      color: #fff; font-size: 1rem; font-weight: 700;
+      padding: 16px 32px; border-radius: 999px; border: none;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 28px rgba(34,197,94,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(34,197,94,.5); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.45);
+      color: #fff; font-size: 1rem; font-weight: 600;
+      padding: 15px 30px; border-radius: 999px;
+      cursor: pointer; text-decoration: none;
+      backdrop-filter: blur(6px);
+      transition: background .2s, border-color .2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.7); }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 32px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,.18);
+    }
+    .hero-stat { color: #fff; }
+    .hero-stat .num {
+      font-size: 2rem; font-weight: 900; line-height: 1;
+      color: var(--yellow);
+    }
+    .hero-stat .label { font-size: .82rem; opacity: .75; margin-top: 4px; }
+
+    /* ── ABOUT ── */
+    #about { padding: 100px 0; background: var(--gray-50); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .about-image-wrap img {
+      width: 100%; height: 440px; object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+    }
+    .about-badge-float {
+      position: absolute; bottom: 24px; left: 24px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-xl);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .about-badge-float .icon {
+      width: 46px; height: 46px; border-radius: 10px;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .about-badge-float .info .num { font-size: 1.4rem; font-weight: 800; color: var(--gray-900); }
+    .about-badge-float .info .txt { font-size: .78rem; color: var(--gray-500); }
+    .about-text .section-sub { margin-bottom: 28px; }
+    .about-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .97rem; color: var(--gray-700);
+    }
+    .about-list li .check {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; color: var(--green-dark); font-weight: 900;
+      margin-top: 2px;
+    }
+    .btn-solid {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-main); color: #fff;
+      font-size: .98rem; font-weight: 700;
+      padding: 14px 28px; border-radius: 999px; border: none;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(22,163,74,.35);
+      transition: background .2s, transform .2s;
+    }
+    .btn-solid:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ── BENEFITS ── */
+    #benefits { padding: 100px 0; background: #fff; }
+    .benefits-header { text-align: center; margin-bottom: 60px; }
+    .benefits-header .section-sub { margin: 0 auto; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .benefit-card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      position: relative; overflow: hidden;
+    }
+    .benefit-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-main), var(--green-light));
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .benefit-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+    .benefit-card:hover::before { opacity: 1; }
+    .card-icon {
+      width: 58px; height: 58px; border-radius: 14px;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 22px;
+      transition: background .25s;
+    }
+    .benefit-card:hover .card-icon { background: var(--green-glow); }
+    .benefit-card h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gray-900); margin-bottom: 12px;
+    }
+    .benefit-card p { font-size: .93rem; color: var(--gray-500); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    #how { padding: 100px 0; background: var(--gray-50); }
+    .how-header { text-align: center; margin-bottom: 60px; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 38px; left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green-pale), var(--green-glow), var(--green-pale));
+      z-index: 0;
+    }
+    .step-card {
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--green-main);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(22,163,74,.2);
+      transition: background .25s, transform .25s;
+    }
+    .step-card:hover .step-num { background: var(--green-pale); transform: scale(1.07); }
+    .step-card h3 { font-size: .97rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+    .step-card p { font-size: .87rem; color: var(--gray-500); line-height: 1.6; }
+
+    /* ── GALLERY STRIP ── */
+    #gallery { padding: 60px 0; background: var(--green-dark); overflow: hidden; }
+    .gallery-strip {
+      display: flex; gap: 20px; width: max-content;
+      animation: slide 30s linear infinite;
+    }
+    @keyframes slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .gallery-strip:hover { animation-play-state: paused; }
+    .strip-img {
+      width: 320px; height: 210px; object-fit: cover;
+      border-radius: 12px; flex-shrink: 0;
+      opacity: .88;
+      transition: opacity .3s, transform .3s;
+    }
+    .strip-img:hover { opacity: 1; transform: scale(1.03); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { padding: 100px 0; background: #fff; }
+    .test-header { text-align: center; margin-bottom: 56px; }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .test-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .25s;
+    }
+    .test-card:hover { box-shadow: var(--shadow-md); }
+    .stars { color: var(--yellow); font-size: 1rem; margin-bottom: 14px; }
+    .test-card blockquote {
+      font-size: .94rem; color: var(--gray-700);
+      line-height: 1.7; margin-bottom: 20px; font-style: italic;
+    }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: .9rem; flex-shrink: 0;
+    }
+    .test-author .name { font-weight: 700; font-size: .88rem; color: var(--gray-900); }
+    .test-author .loc  { font-size: .78rem; color: var(--gray-500); }
+
+    /* ── CONTACT ── */
+    #contact { padding: 100px 0; background: var(--gray-50); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info h2 { font-size: 1.9rem; font-weight: 800; color: var(--gray-900); margin-bottom: 14px; }
+    .contact-info p  { font-size: .97rem; color: var(--gray-500); line-height: 1.7; margin-bottom: 36px; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .info-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .info-list .detail .lbl { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; color: var(--gray-500); font-weight: 600; }
+    .info-list .detail .val { font-size: .97rem; color: var(--gray-900); font-weight: 600; }
+
+    /* ── FORM ── */
+    .form-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--gray-200);
+    }
+    .form-card h3 { font-size: 1.35rem; font-weight: 800; color: var(--gray-900); margin-bottom: 6px; }
+    .form-card .sub { font-size: .88rem; color: var(--gray-500); margin-bottom: 30px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .field label {
+      font-size: .82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--gray-700);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 10px; font-size: .97rem;
+      color: var(--gray-900); background: var(--gray-50);
+      outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
+      font-family: inherit;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--green-main);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+    }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .field select { cursor: pointer; }
+    .field input[type="number"]::-webkit-inner-spin-button { opacity: .5; }
+
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--green-light), var(--green-main));
+      color: #fff; font-size: 1rem; font-weight: 700;
+      border: none; border-radius: 12px; cursor: pointer;
+      box-shadow: 0 6px 22px rgba(22,163,74,.38);
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(22,163,74,.48); }
+    .btn-submit:disabled { opacity: .65; cursor: not-allowed; }
+
+    /* Success banner */
+    .success-banner {
+      display: none;
+      align-items: center; gap: 16px;
+      background: var(--green-pale);
+      border: 1.5px solid var(--green-glow);
+      border-radius: 12px; padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .success-banner.show { display: flex; }
+    .success-banner .ic { font-size: 2rem; }
+    .success-banner .msg strong { display: block; font-size: 1rem; color: var(--green-dark); font-weight: 700; }
+    .success-banner .msg span  { font-size: .88rem; color: var(--green-dark); opacity: .85; }
+
+    /* Error */
+    .error-banner {
+      display: none;
+      align-items: center; gap: 16px;
+      background: #fef2f2; border: 1.5px solid #fecaca;
+      border-radius: 12px; padding: 18px 22px; margin-bottom: 22px;
+    }
+    .error-banner.show { display: flex; }
+    .error-banner span { font-size: .93rem; color: #b91c1c; font-weight: 500; }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,.4);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--gray-900);
+      color: rgba(255,255,255,.65);
+      padding: 60px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo-wrap {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .footer-brand .logo-wrap .icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--green-main), var(--green-light));
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .footer-brand .logo-wrap span { color: #fff; font-weight: 800; font-size: 1.05rem; }
+    .footer-brand p { font-size: .88rem; line-height: 1.7; max-width: 260px; }
+    .footer-col h4 {
+      color: #fff; font-size: .88rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      text-decoration: none; font-size: .88rem;
+      color: rgba(255,255,255,.55);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--green-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: .82rem; }
+    .social-links { display: flex; gap: 10px; }
+    .social-links a {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.65); text-decoration: none; font-size: .85rem;
+      transition: background .2s, color .2s;
+    }
+    .social-links a:hover { background: var(--green-main); color: #fff; }
+
+    /* ── BACK TO TOP ── */
+    #backTop {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--green-main); color: #fff;
+      border: none; cursor: pointer; font-size: 1.2rem;
+      box-shadow: 0 4px 16px rgba(22,163,74,.4);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 888;
+    }
+    #backTop.show { opacity: 1; pointer-events: auto; }
+    #backTop:hover { transform: translateY(-3px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .about-grid  { grid-template-columns: 1fr; }
+      .about-image-wrap img { height: 300px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .test-grid     { grid-template-columns: 1fr; }
+      .contact-grid  { grid-template-columns: 1fr; }
+      .form-card     { padding: 30px 22px; }
+      .footer-grid   { grid-template-columns: 1fr 1fr; }
+      .footer-brand  { grid-column: 1 / -1; }
+      .hero-stats    { gap: 24px; }
+      .form-row      { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .steps-grid  { grid-template-columns: 1fr; }
+      .hero-title  { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAVIGATION
+══════════════════════════════ -->
+<nav id="mainNav">
+  <div class="container nav-inner">
+    <a href="#home" class="nav-logo">
+      <div class="logo-icon">☀️</div>
+      <span>Bright<em>Solar</em> Solutions</span>
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#how">How It Works</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact" class="btn-nav">Get a Free Quote</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home"  onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#benefits" onclick="closeMenu()">Benefits</a>
+    <a href="#how"   onclick="closeMenu()">How It Works</a>
+    <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+    <a href="#contact" onclick="closeMenu()">Get a Free Quote</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      #1 Rated Solar Provider
+    </div>
+    <h1 class="hero-title">
+      Power Your Home with<br>
+      <span class="accent">Clean Solar Energy</span>
+    </h1>
+    <p class="hero-subtitle">
+      BrightSolar Solutions designs, installs, and maintains premium solar systems that cut your electricity bills by up to 90% — and help protect the planet.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">
+        ⚡ Get a Free Quote
+      </a>
+      <a href="#about" class="btn-outline">
+        ▶ Learn More
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">5,000+</div><div class="label">Installations Completed</div></div>
+      <div class="hero-stat"><div class="num">90%</div><div class="label">Average Bill Reduction</div></div>
+      <div class="hero-stat"><div class="num">25yr</div><div class="label">Panel Warranty</div></div>
+      <div class="hero-stat"><div class="num">4.9★</div><div class="label">Customer Rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     ABOUT
+══════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap">
+        <img
+          src="https://images.pexels.com/photos/20782341/pexels-photo-20782341.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+          alt="Rooftops with solar panels"
+          loading="lazy"
+        />
+        <div class="about-badge-float">
+          <div class="icon">🏆</div>
+          <div class="info">
+            <div class="num">12+ Years</div>
+            <div class="txt">Industry Experience</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="section-tag">About BrightSolar</span>
+        <h2 class="section-title">We Make Solar<br>Simple & Affordable</h2>
+        <p class="section-sub">
+          Since 2012, BrightSolar Solutions has been the trusted choice for homeowners and businesses looking to harness the power of the sun. We deliver end-to-end solar solutions — from the first consultation to after-installation support.
+        </p>
+        <ul class="about-list">
+          <li>
+            <span class="check">✓</span>
+            <span>Licensed, certified solar engineers with 12+ years of hands-on experience</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Premium Tier 1 panels from industry-leading manufacturers</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Zero up-front cost financing options and full ROI analysis</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>Dedicated 24/7 monitoring and ongoing maintenance support</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span>We handle all permits, inspections, and utility interconnection paperwork</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn-solid">
+          Schedule a Consultation →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     BENEFITS
+══════════════════════════════ -->
+<section id="benefits">
+  <div class="container">
+    <div class="benefits-header">
+      <span class="section-tag">Why Go Solar</span>
+      <h2 class="section-title">Everything You Gain by Going Solar</h2>
+      <p class="section-sub">Solar power isn't just good for the environment — it's one of the smartest financial decisions a homeowner can make.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="card-icon">💰</div>
+        <h3>Dramatically Lower Bills</h3>
+        <p>Most of our customers slash their electricity bills by 70–90%. Excess energy is sold back to the grid through net metering, putting cash back in your pocket.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon">🌱</div>
+        <h3>Reduce Carbon Footprint</h3>
+        <p>A typical residential solar system offsets 3–4 tonnes of CO₂ per year — equivalent to planting over 100 trees annually. Go green without compromise.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon">🏠</div>
+        <h3>Increase Property Value</h3>
+        <p>Homes with solar systems sell for an average of 4% more. It's an upgrade that pays for itself and then continues delivering returns for decades.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon">🔋</div>
+        <h3>Energy Independence</h3>
+        <p>Paired with battery storage, you gain true energy independence — power that keeps your home running even during grid outages and peak demand periods.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon">🛡️</div>
+        <h3>25-Year Warranty</h3>
+        <p>Our Tier 1 panels come with a full 25-year performance warranty. We also offer 10-year workmanship guarantees on all our installations.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon">📊</div>
+        <h3>Tax Credits & Incentives</h3>
+        <p>Take advantage of the 30% Federal Solar Tax Credit plus state-level rebates and SRECs. Our team handles all paperwork to maximise your savings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     HOW IT WORKS
+══════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="how-header">
+      <span class="section-tag">Our Process</span>
+      <h2 class="section-title">Going Solar in 4 Easy Steps</h2>
+      <p class="section-sub" style="margin:0 auto;">From your first call to flipping the switch, we make the journey smooth and stress-free.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">📋</div>
+        <h3>1. Free Consultation</h3>
+        <p>Fill out our quick form and we'll schedule a no-obligation site assessment and energy audit at your home.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">📐</div>
+        <h3>2. Custom Design</h3>
+        <p>Our engineers design a bespoke solar system tailored to your roof, energy usage, and budget goals.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">🔧</div>
+        <h3>3. Installation</h3>
+        <p>Our certified crew installs your system swiftly and cleanly — typically in just 1–2 days, with zero mess left behind.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">⚡</div>
+        <h3>4. Power On!</h3>
+        <p>We handle final inspections, grid connection, and hand you the keys to decades of clean, affordable power.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     GALLERY STRIP
+══════════════════════════════ -->
+<section id="gallery">
+  <div class="gallery-strip">
+    <img class="strip-img" src="https://images.pexels.com/photos/20782341/pexels-photo-20782341.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Solar panels rooftop" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/12243093/pexels-photo-12243093.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="House with solar panels" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/17965455/pexels-photo-17965455.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Close-up solar panels" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/6233727/pexels-photo-6233727.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Row of solar homes" loading="lazy" />
+    <!-- Duplicate for seamless loop -->
+    <img class="strip-img" src="https://images.pexels.com/photos/20782341/pexels-photo-20782341.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Solar panels rooftop" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/12243093/pexels-photo-12243093.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="House with solar panels" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/17965455/pexels-photo-17965455.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Close-up solar panels" loading="lazy" />
+    <img class="strip-img" src="https://images.pexels.com/photos/6233727/pexels-photo-6233727.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=420&w=640" alt="Row of solar homes" loading="lazy" />
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     TESTIMONIALS
+══════════════════════════════ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="test-header">
+      <span class="section-tag">Customer Reviews</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-sub" style="margin:0 auto;">Don't take our word for it — hear from real homeowners who made the switch with BrightSolar.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Our electricity bill went from $310 to $28 per month. The team was professional, fast, and handled every single permit. Absolutely worth every penny!"</blockquote>
+        <div class="test-author">
+          <div class="test-avatar">JM</div>
+          <div>
+            <div class="name">James Morrison</div>
+            <div class="loc">📍 Austin, TX</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"BrightSolar made the whole process effortless. From the free assessment to flipping the switch — took less than 3 weeks. My home value has already increased!"</blockquote>
+        <div class="test-author">
+          <div class="test-avatar">SR</div>
+          <div>
+            <div class="name">Sarah Rodriguez</div>
+            <div class="loc">📍 Phoenix, AZ</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"The team was incredibly knowledgeable. They explained everything clearly, helped us claim the tax credit, and our system has been generating perfectly for 2 years now."</blockquote>
+        <div class="test-author">
+          <div class="test-avatar">DK</div>
+          <div>
+            <div class="name">David Kim</div>
+            <div class="loc">📍 San Diego, CA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     CONTACT / FORM
+══════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Left: Info -->
+      <div class="contact-info">
+        <span class="section-tag">Get In Touch</span>
+        <h2>Ready to Start Saving?</h2>
+        <p>Fill out the form and one of our solar advisors will contact you within 24 hours to schedule your free, no-obligation consultation.</p>
+        <ul class="info-list">
+          <li>
+            <div class="info-icon">📞</div>
+            <div class="detail">
+              <div class="lbl">Phone</div>
+              <div class="val">1-800-BRIGHT-SUN</div>
+            </div>
+          </li>
+          <li>
+            <div class="info-icon">📧</div>
+            <div class="detail">
+              <div class="lbl">Email</div>
+              <div class="val">hello@brightsolar.com</div>
+            </div>
+          </li>
+          <li>
+            <div class="info-icon">🕐</div>
+            <div class="detail">
+              <div class="lbl">Hours</div>
+              <div class="val">Mon – Sat: 8am – 6pm</div>
+            </div>
+          </li>
+          <li>
+            <div class="info-icon">📍</div>
+            <div class="detail">
+              <div class="lbl">Service Area</div>
+              <div class="val">Nationwide Coverage</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="form-card">
+        <h3>🌟 Request Your Free Quote</h3>
+        <p class="sub">No obligation. No spam. Just clear, honest advice.</p>
+
+        <!-- Success message -->
+        <div class="success-banner" id="successBanner">
+          <span class="ic">✅</span>
+          <div class="msg">
+            <strong>Thank you! Your request was sent.</strong>
+            <span>A BrightSolar advisor will be in touch within 24 hours.</span>
+          </div>
+        </div>
+
+        <!-- Error message -->
+        <div class="error-banner" id="errorBanner">
+          <span>⚠️</span>
+          <span id="errorMsg">Something went wrong. Please try again.</span>
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Jane Smith" required />
+            </div>
+            <div class="field">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Phone Number *</label>
+              <input type="text" id="phone" name="phone" placeholder="(555) 000-0000" required />
+            </div>
+            <div class="field">
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" placeholder="e.g. Austin" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="ownership">Own or Rent *</label>
+              <select id="ownership" name="ownership" required>
+                <option value="" disabled selected>Select one…</option>
+                <option value="Own">Own</option>
+                <option value="Rent">Rent</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">Budget (USD) *</label>
+              <input type="number" id="budget" name="budget" placeholder="e.g. 15000" min="0" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="description">Project Description</label>
+            <textarea id="description" name="description" placeholder="Tell us about your property, current energy usage, or any questions you have…"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span id="btnText">⚡ Send My Free Quote Request</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+
+          <p style="text-align:center;font-size:.78rem;color:var(--gray-500);margin-top:14px;">
+            🔒 Your information is 100% secure and will never be shared.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-wrap">
+          <div class="icon">☀️</div>
+          <span>BrightSolar Solutions</span>
+        </div>
+        <p>Delivering clean, affordable solar energy to homes and businesses across the nation since 2012. Your brighter future starts here.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="#benefits">Residential Solar</a></li>
+          <li><a href="#benefits">Commercial Solar</a></li>
+          <li><a href="#benefits">Battery Storage</a></li>
+          <li><a href="#benefits">EV Charging</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#contact">Get a Quote</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="#contact">Maintenance</a></li>
+          <li><a href="#contact">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BrightSolar Solutions. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="backTop" aria-label="Back to top">↑</button>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  /* ─ Navbar shadow on scroll ─ */
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+  });
+
+  /* ─ Mobile menu toggle ─ */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMenu() { mobileMenu.classList.remove('open'); }
+
+  /* ─ Back to top ─ */
+  document.getElementById('backTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ─ Animate numbers in hero on load ─ */
+  function animateValue(el, start, end, duration, suffix) {
+    let startTime = null;
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const current = Math.floor(progress * (end - start) + start);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* ─ Intersection Observer for section fade-in ─ */
+  const observerOpts = { threshold: 0.12 };
+  const fadeEls = document.querySelectorAll(
+    '.benefit-card, .step-card, .test-card, .about-grid, .contact-grid'
+  );
+  fadeEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity .55s ease, transform .55s ease';
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOpts);
+  fadeEls.forEach(el => observer.observe(el));
+
+  /* ─ Stagger benefit cards ─ */
+  const cards = document.querySelectorAll('.benefit-card');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = [...cards].indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, idx * 80);
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => cardObserver.observe(c));
+
+  /* ─ FORM SUBMISSION ─ */
+  const form          = document.getElementById('contactForm');
+  const submitBtn     = document.getElementById('submitBtn');
+  const btnText       = document.getElementById('btnText');
+  const spinner       = document.getElementById('spinner');
+  const successBanner = document.getElementById('successBanner');
+  const errorBanner   = document.getElementById('errorBanner');
+  const errorMsg      = document.getElementById('errorMsg');
+
+  function setLoading(on) {
+    submitBtn.disabled = on;
+    spinner.style.display   = on ? 'block' : 'none';
+    btnText.style.display   = on ? 'none'  : 'flex';
+  }
+
+  function showSuccess() {
+    successBanner.classList.add('show');
+    errorBanner.classList.remove('show');
+    successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg || 'Something went wrong. Please try again.';
+    errorBanner.classList.add('show');
+    successBanner.classList.remove('show');
+  }
+
+  /* Basic client-side validation */
+  function validate() {
+    const name  = form.fullName.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const city  = form.city.value.trim();
+    const own   = form.ownership.value;
+    const bud   = form.budget.value;
+
+    if (!name)                         return 'Full Name is required.';
+    if (!email || !/\S+@\S+\.\S+/.test(email)) return 'A valid Email is required.';
+    if (!phone)                        return 'Phone Number is required.';
+    if (!city)                         return 'City is required.';
+    if (!own)                          return 'Please select Own or Rent.';
+    if (!bud || Number(bud) < 0)       return 'Please enter a valid Budget.';
+    return null;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const validationError = validate();
+    if (validationError) { showError(validationError); return; }
+
+    setLoading(true);
+    errorBanner.classList.remove('show');
+
+    const payload = {
+      fullName:    form.fullName.value.trim(),
+      email:       form.email.value.trim(),
+      phone:       form.phone.value.trim(),
+      city:        form.city.value.trim(),
+      ownership:   form.ownership.value,
+      budget:      Number(form.budget.value),
+      description: form.description.value.trim(),
+      submittedAt: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch('http://localhost:5678/webhook/7257f025-009e-4463-af30-ad9d42487867', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        showSuccess();
+        form.reset();
+      } else {
+        showError(`Server responded with status ${res.status}. Please try again.`);
+      }
+    } catch (err) {
+      showError('Network error — please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>
+</body>
+</html>
