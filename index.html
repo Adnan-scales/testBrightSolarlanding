@@ -1193,11 +1193,14 @@
 
     try {
       const res = await fetch("https://repeater-excavate-frozen.ngrok-free.dev/webhook/bda714bc-2592-4136-9180-d7f3eb8e04f3", {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
-      });
-
+  method: "POST",
+  mode: "cors",
+  headers: {
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true"
+  },
+  body: JSON.stringify(formData)
+})
       if (res.ok) {
         showSuccess();
         form.reset();
