@@ -1202,6 +1202,38 @@
 
 } catch (err) {
   showError("Something went wrong. Please try again.");
+}function submitToN8n(url, data) {
+  return new Promise((resolve) => {
+    const iframeName = "n8n_iframe_" + Date.now();
+
+    const iframe = document.createElement("iframe");
+    iframe.name = iframeName;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    const hiddenForm = document.createElement("form");
+    hiddenForm.method = "POST";
+    hiddenForm.action = url;
+    hiddenForm.target = iframeName;
+    hiddenForm.style.display = "none";
+
+    Object.entries(data).forEach(([key, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value ?? "";
+      hiddenForm.appendChild(input);
+    });
+
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+
+    setTimeout(() => {
+      hiddenForm.remove();
+      iframe.remove();
+      resolve();
+    }, 1000);
+  });
 }
   });
 </script>
