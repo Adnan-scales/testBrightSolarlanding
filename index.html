@@ -1192,25 +1192,17 @@
     };
 
     try {
-      const res = await fetch("https://oussama1.app.n8n.cloud/webhook/92c8b234-5e28-4126-9c9d-9b169234ee8a", {
-  method: "POST",
-  mode: "cors",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(formData)
-})
-      if (res.ok) {
-        showSuccess();
-        form.reset();
-      } else {
-        showError(`Server responded with status ${res.status}. Please try again.`);
-      }
-    } catch (err) {
-      showError('Network error — please check your connection and try again.');
-    } finally {
-      setLoading(false);
-    }
+  await submitToN8n(
+    "https://oussama1.app.n8n.cloud/webhook/92c8b234-5e28-4126-9c9d-9b169234ee8a",
+    formData
+  );
+
+  showSuccess();
+  form.reset();
+
+} catch (err) {
+  showError("Something went wrong. Please try again.");
+}
   });
 </script>
 </body>
